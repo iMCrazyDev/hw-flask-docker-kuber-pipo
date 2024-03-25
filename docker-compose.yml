@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: "RACING"
+      POSTGRES_USER: "HSE"
+      POSTGRES_PASSWORD: "ESH822"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  back:
+    build: ./backend
+    ports:
+      - "5228:5228"
+    depends_on:
+      - db
+
+volumes:
+  db-data:

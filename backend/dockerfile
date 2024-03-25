@@ -1,0 +1,15 @@
+FROM ubuntu:latest
+
+WORKDIR /app
+
+COPY requirements.txt /app
+
+RUN apt update && apt install python3-pip -y
+RUN apt install libpq-dev -y
+RUN apt install build-essential -y
+RUN pip3 install --upgrade pip
+RUN pip3 install --no-cache-dir -r requirements.txt
+EXPOSE 5228
+COPY . /app
+
+CMD ["python3", "app.py"]
